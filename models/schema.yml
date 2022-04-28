@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: SNOW_SB_TRIPLEPEAK_SPINS
+    database: TRIPLEPEAK_SB
+    schema: public
+    tables:
+      - name: TRIPLEPEAK_SPINS_LP
+        columns:
+          - name: "Product Level"
