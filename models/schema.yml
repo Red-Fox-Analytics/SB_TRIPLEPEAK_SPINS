@@ -5,3 +5,5 @@ sources:
     schema: public
     tables:
       - name: TRIPLEPEAK_SPINS_LP
+
+      
