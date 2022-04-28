@@ -38,7 +38,7 @@ select  "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Pr
 	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
 			, "PRODUCT TYPE", "Department" ,"STORAGE", "DIET - KETO DIET" , "DIET - PALEO DIET" , "FLAVOR" ,"LABELED NON-GMO", 
 			 "LABELED GRASS FED","LABELED ORGANIC" ,"LABELED NITRATE FREE" ,"PLANT BASED","ANIMAL TYPE","PALEO", "UNIT OF MEASURE"
-	limit 1000
+	--limit 1000
 ), level_2 as (
 select * 
 	, sum("$ sales") 			over(partition by "Geography","Time Period","Time Period End Date") "total category sales"
