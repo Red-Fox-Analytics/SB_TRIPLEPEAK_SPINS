@@ -1,6 +1,6 @@
 with basic_calculations as (
 
-select  "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" , "Category"
+select  "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
 			, "PRODUCT TYPE", "Department" ,"STORAGE", "DIET - KETO DIET" , "DIET - PALEO DIET" , "FLAVOR" ,"LABELED NON-GMO", 
 			 "LABELED GRASS FED","LABELED ORGANIC" ,"LABELED NITRATE FREE" ,"PLANT BASED","ANIMAL TYPE","PALEO", "UNIT OF MEASURE"
 			, sum("Units"						) as "unit sales"
@@ -34,8 +34,8 @@ select  "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Pr
 			, max("Number of Weeks Selling"				) as "number of weeks selling"
 			, max("Number of Weeks Selling, Yago"		) as "number of weeks selling ya"
 			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as avg_size
-	from "PUBLIC".TRIPLEPEAK_SPINS_LP--{{ source('miltons', 'miltons_spins_lp_2y') }} msly--public.miltons_spins_lp_2y msly 
-	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" , "Category"
+	from {{ source('TRIPLEPEAK_SB', 'TRIPLEPEAK_SPINS_LP') }} msly--public.miltons_spins_lp_2y msly 
+	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
 			, "PRODUCT TYPE", "Department" ,"STORAGE", "DIET - KETO DIET" , "DIET - PALEO DIET" , "FLAVOR" ,"LABELED NON-GMO", 
 			 "LABELED GRASS FED","LABELED ORGANIC" ,"LABELED NITRATE FREE" ,"PLANT BASED","ANIMAL TYPE","PALEO", "UNIT OF MEASURE"
 	limit 1000
