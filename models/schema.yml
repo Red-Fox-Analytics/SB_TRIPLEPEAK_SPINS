@@ -90,7 +90,6 @@ metrics:
       - "UPC"
       - "Description"
       - "Time Period"
-      - "Time Period End Date"
       - "Geography"
       - "POSITIONING GROUP"
       - "PRODUCT TYPE"
