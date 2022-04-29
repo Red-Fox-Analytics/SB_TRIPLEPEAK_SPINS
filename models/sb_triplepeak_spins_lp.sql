@@ -58,6 +58,4 @@ select *
 	from basic_calculations
 )
 select * from level_2
-
-
 --SELECT * FROM "PUBLIC".TRIPLEPEAK_SPINS_LP  LIMIT 5

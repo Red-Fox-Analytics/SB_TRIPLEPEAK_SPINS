@@ -64,6 +64,8 @@ models:
         description: "PALEO"
       - name: "UNIT OF MEASURE"
         description: "UNIT OF MEASURE"
+      - name: "$ sales"
+        description: "$ sales ya" 
       - name: "$ sales ya"
         description: "$ sales ya" 
 metrics:
