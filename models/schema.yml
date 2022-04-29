@@ -106,3 +106,79 @@ metrics:
       - "ANIMAL TYPE"
       - "PALEO"
       - "UNIT OF MEASURE"
+    
+  - name: "$/S/W"
+    label: "$ sales/ store selling / weeks selling"
+    model: ref('sb_triplepeak_spins_lp')
+    description: "$ sales/ store selling / weeks selling"
+
+    type: ROUND
+    sql:  case when max("no of stores selling")=0 or max("no of weeks selling")=0 then 0 else  ((SUM("$ sales") /max("no of stores selling")/max("no of weeks selling")) end 
+
+    timestamp: "Time Period End Date"
+    time_grains: [day, week, month]
+
+    dimensions:
+      - "Product Level"
+      - "Category" 
+      - "Subcategory"
+      - "Channel/Outlet"
+      - "Brand"
+      - "Product Universe"
+      - "UPC"
+      - "Description"
+      - "Time Period"
+      - "Geography"
+      - "POSITIONING GROUP"
+      - "PRODUCT TYPE"
+      - "Department"
+      - "STORAGE"
+      - "DIET - KETO DIET"
+      - "DIET - PALEO DIET"
+      - "FLAVOR"
+      - "LABELED NON-GMO"
+      - "LABELED GRASS FED"
+      - "LABELED ORGANIC"
+      - "LABELED NITRATE FREE"
+      - "PLANT BASED"
+      - "ANIMAL TYPE"
+      - "PALEO"
+      - "UNIT OF MEASURE"
+
+  - name: "$/TDP"
+    label: "$/TDP"
+    model: ref('sb_triplepeak_spins_lp')
+    description: "$/TDP"
+
+    type: ROUND
+    sql:  case when SUM("tdp")=0 then 0 else  (SUM("$ sales") /SUM("tdp")) end 
+
+    timestamp: "Time Period End Date"
+    time_grains: [day, week, month]
+
+    dimensions:
+      - "Product Level"
+      - "Category" 
+      - "Subcategory"
+      - "Channel/Outlet"
+      - "Brand"
+      - "Product Universe"
+      - "UPC"
+      - "Description"
+      - "Time Period"
+      - "Geography"
+      - "POSITIONING GROUP"
+      - "PRODUCT TYPE"
+      - "Department"
+      - "STORAGE"
+      - "DIET - KETO DIET"
+      - "DIET - PALEO DIET"
+      - "FLAVOR"
+      - "LABELED NON-GMO"
+      - "LABELED GRASS FED"
+      - "LABELED ORGANIC"
+      - "LABELED NITRATE FREE"
+      - "PLANT BASED"
+      - "ANIMAL TYPE"
+      - "PALEO"
+      - "UNIT OF MEASURE"
