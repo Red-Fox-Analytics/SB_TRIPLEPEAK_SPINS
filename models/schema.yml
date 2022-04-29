@@ -67,7 +67,13 @@ models:
       - name: "$ sales"
         description: "$ sales ya" 
       - name: "$ sales ya"
-        description: "$ sales ya" 
+        description: "$ sales ya"
+      - name: "no of stores selling"
+        description: "no of stores selling" 
+      - name: "number of weeks selling"
+        description: "number of weeks selling" 
+      - name: tdp
+        description: "TDP" 
 metrics:
   - name: "$ Sales % Chg YA"
     label: "$ sales % change Ya"
@@ -113,7 +119,7 @@ metrics:
     description: "$ sales/ store selling / weeks selling"
 
     type: ROUND
-    sql:  case when max("no of stores selling")=0 or max("number of weeks selling")=0 then 0 else  (SUM("$ sales") /max("no of stores selling")/max("number  of weeks selling")) end 
+    sql:  case when max("no of stores selling")=0 or max("number of weeks selling")=0 then 0 else  (SUM("$ sales") /max("no of stores selling")/max("number of weeks selling")) end 
 
     timestamp: "Time Period End Date"
     time_grains: [day, week, month]
