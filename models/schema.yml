@@ -7,8 +7,8 @@ sources:
       - name: TRIPLEPEAK_SPINS_LP
 
 models:
-  - name: sb_triblepeak_spins_lp
-    description: "Spins lp snow"
+  - name: sb_triplepeak_spins_lp
+    description: "SB TriplePeak Spins LP"
     columns:
       - name: "Product Level"
         description: "Product Level"
@@ -69,7 +69,7 @@ models:
 metrics:
   - name: "$ Sales % Chg YA"
     label: "$ sales % change Ya"
-    model: ref('sb_triblepeak_spins_lp')
+    model: ref('sb_triplepeak_spins_lp')
     description: "Sales percentage change from year ago"
 
     type: ROUND
