@@ -75,7 +75,7 @@ metrics:
     type: ROUND
     sql:  case when SUM("$ sales ya")=0 then 0 else  ((SUM("$ sales") /SUM("$ sales ya"))-1)*100 end 
 
-    timestamp: "Time_Period_End_Date"
+    timestamp: "Time Period End Date"
     time_grains: [day, week, month]
 
     dimensions:
