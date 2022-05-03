@@ -74,6 +74,7 @@ models:
         description: "number of weeks selling" 
       - name: tdp
         description: "TDP" 
+        
 metrics:
   - name: "$ sales % chg ya"
     label: "$ sales % change Ya"
