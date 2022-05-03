@@ -1,8 +1,20 @@
+{% set colsQuery %}
+    select CUSTOM_HEADER from {{ source('TRIPLEPEAK_SB','RF_SPINS_CUSTOMATRRIBUTES') }}
+    where CLIENT='TRIPLEPEAK' and DATASOURCE='SPINS_LP'
+{% endset %}
+{% set results = run_query(colsQuery) %}
+{% if execute %}
+	{% set results_list = results.columns[0].values() %}
+{% else %}
+	{% set results_list = [] %}
+{% endif %}
 with basic_calculations as (
 
 select  "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
-			, "PRODUCT TYPE", "Department" ,"STORAGE","PLANT BASED","UNIT OF MEASURE", "DIET - KETO DIET" , "DIET - PALEO DIET" , "FLAVOR" ,"LABELED NON-GMO", 
-			 "LABELED GRASS FED","LABELED ORGANIC" ,"LABELED NITRATE FREE" ,"ANIMAL TYPE","PALEO"
+			, "PRODUCT TYPE", "Department" ,"STORAGE","PLANT BASED","UNIT OF MEASURE", 
+			{% for item in results_list %}
+    			"{{item}}" as ATTRIBUTE{{loop.index}}{%if not loop.last%},{% endif %}
+			{% endfor %}
 			, sum("Units"						) as "unit sales"
 			, sum("Units, Yago"					) as "unit sales ya"
 			, sum(cast(case when "Dollars" is null then 0 else "Dollars" end  as float)) as "$ sales"
@@ -36,8 +48,10 @@ select  "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Pr
 			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as avg_size
 	from {{ source('TRIPLEPEAK_SB', 'TRIPLEPEAK_SPINS_LP') }} msly--public.miltons_spins_lp_2y msly 
 	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
-			, "PRODUCT TYPE", "Department" ,"STORAGE","PLANT BASED","UNIT OF MEASURE", "DIET - KETO DIET" , "DIET - PALEO DIET" , "FLAVOR" ,"LABELED NON-GMO", 
-			 "LABELED GRASS FED","LABELED ORGANIC" ,"LABELED NITRATE FREE" ,"ANIMAL TYPE","PALEO"
+			, "PRODUCT TYPE", "Department" ,"STORAGE","PLANT BASED","UNIT OF MEASURE", 
+			{% for item in results_list %}
+    			"{{item}}"{%if not loop.last%},{% endif %}
+			{% endfor %}
 	--limit 1000
 ), level_2 as (
 select * 

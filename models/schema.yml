@@ -5,6 +5,7 @@ sources:
     schema: public
     tables:
       - name: TRIPLEPEAK_SPINS_LP
+      - name: RF_SPINS_CUSTOMATRRIBUTES
 
 models:
   - name: sb_triplepeak_spins_lp
