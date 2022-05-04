@@ -147,7 +147,7 @@ metrics:
     description: "$/TDP"
 
     type: ROUND
-    sql:  case when SUM(TDP)=0 then 0 else  SUM("$ SALES")/SUM(TDP) end 
+    sql:  case when SUM("TDP")=0 then 0 else  SUM("$ SALES")/SUM("TDP") end 
 
     timestamp: "TIME PERIOD END DATE"
     time_grains: [day, week, month]
