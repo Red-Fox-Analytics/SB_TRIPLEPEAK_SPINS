@@ -50,8 +50,8 @@ select   	"Product Level" as "PROCUCT LEVEL","Category" as CATEGORY,"Subcategory
 			, max("# of Stores, Yago"			) as "NO OF STORES SELLING YA"
 			, max("Max % ACV, Any Promo") AS "MAX % ACV, Any PROMO"
 			, max("Max % ACV, Any Promo, Yago") AS "MAX % ACV, Any PROMO, YA"
-			, max("Number of Weeks Selling"				) as "NUMBER OF WEEKS SELLING"
-			, max("Number of Weeks Selling, Yago"		) as "NUMBER OF WEEKS SELLING YA"
+			, case when max("Number of Weeks Selling") is null then 0 else max("Number of Weeks Selling") end  as "NUMBER OF WEEKS SELLING"
+			, case when max("Number of Weeks Selling, Yago") is null then 0 else max("Number of Weeks Selling, Yago") end as "NUMBER OF WEEKS SELLING YA"
 			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as AVG_SIZE
 	from {{ source('TRIPLEPEAK_SB', 'TRIPLEPEAK_SPINS_LP') }} msly--public.miltons_spins_lp_2y msly 
 	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description"

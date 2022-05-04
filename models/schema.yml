@@ -109,8 +109,7 @@ metrics:
       - "UNIT OF MEASURE"
       - "PLANT BASED"
 
-      
-  
+ 
   - name: "$/S/W"
     label: "$ sales/ store selling / weeks selling"
     model: ref('sb_triplepeak_spins_lp')
@@ -140,7 +139,8 @@ metrics:
       - "STORAGE"
       - "UNIT OF MEASURE"
       - "PLANT BASED"
-
+     
+  
   - name: "$/TDP"
     label: "$/TDP"
     model: ref('sb_triplepeak_spins_lp')
