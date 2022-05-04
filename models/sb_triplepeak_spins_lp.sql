@@ -10,7 +10,14 @@
 {% endif %}
 with basic_calculations as (
 
-select  "Product Level" as "PROCUCT LEVEL","Category" as CATEGORY,"Subcategory" "SUBCATEGORY","Channel/Outlet" "CHANNEL/OUTLET","Brand" "BRAND", "Product Universe" "PRODUCT UNIVERSE", "UPC" ,"Description" as "PRODUCT DESCRIPTION", "Time Period" "TIME PERIOD","Time Period End Date" "TIME PERIOD END DATE", "Geography" "GEOGRAPHY", "POSITIONING GROUP" "POSITIONING GROUP" 
+select   	"Product Level" as "PROCUCT LEVEL","Category" as CATEGORY,"Subcategory" "SUBCATEGORY","Channel/Outlet" "CHANNEL/OUTLET","Brand" "BRAND", "Product Universe" "PRODUCT UNIVERSE", "UPC" ,"Description" as "PRODUCT DESCRIPTION"
+			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end "TIME PERIOD"
+			, CASE when "Time Period"='4 Weeks' then '04W' 
+		 	   when "Time Period"='12 Weeks' then '12W' 
+			   when "Time Period"='24 Weeks' then '24W' 
+			   when "Time Period"='52 Weeks' then '52W' 
+			   else "Time Period" end as "TIME PERIOD ABR"
+			,"Time Period End Date" "TIME PERIOD END DATE", "Geography" "GEOGRAPHY", "POSITIONING GROUP" "POSITIONING GROUP" 
 			, "PRODUCT TYPE" "PRODUCT TYPE", "Department" "DEPARTMENT","STORAGE" "STORAGE","PLANT BASED" "PLANT BASED","UNIT OF MEASURE" "UNIT OF MEASURE", 
 			{% for item in results_list %}
     			"{{item}}" as ATTRIBUTE{{loop.index}}{%if not loop.last%},{% endif %}
@@ -47,7 +54,14 @@ select  "Product Level" as "PROCUCT LEVEL","Category" as CATEGORY,"Subcategory" 
 			, max("Number of Weeks Selling, Yago"		) as "number OF WEEKS SELLING YA"
 			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as AVG_SIZE
 	from {{ source('TRIPLEPEAK_SB', 'TRIPLEPEAK_SPINS_LP') }} msly--public.miltons_spins_lp_2y msly 
-	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description", "Time Period" ,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
+	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description"
+			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end
+			, CASE when "Time Period"='4 Weeks' then '04W' 
+		 	   when "Time Period"='12 Weeks' then '12W' 
+			   when "Time Period"='24 Weeks' then '24W' 
+			   when "Time Period"='52 Weeks' then '52W' 
+			   else "Time Period" end 
+			,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
 			, "PRODUCT TYPE", "Department" ,"STORAGE","PLANT BASED","UNIT OF MEASURE", 
 			{% for item in results_list %}
     			"{{item}}"{%if not loop.last%},{% endif %}
@@ -67,7 +81,7 @@ select *
 	, cast(tdp as float)- 									cast("TDP YA"  					as float)		as "TDP CHANGE YA"
 	, cast("UNIT SALES" as float)-							cast("UNIT SALES YA"  			as float)		as "UNIT SALES CHANGE YA"
 	, cast("UNIT SALES YA" as float)-						cast("UNIT SALES PROMO YA"  	as float)			as "UNIT SALES NON PROMO YA"	
-	, "incremental SALES"-"incremental SALES YA" as "CHANGE DUE TO PROMOTION"
+	, "INCREMENTAL SALES"-"INCREMENTAL SALES YA" as "CHANGE DUE TO PROMOTION"
 	
 	from basic_calculations
 )
