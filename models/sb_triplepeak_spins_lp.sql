@@ -17,7 +17,7 @@ select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory
 			   when "Time Period"='24 Weeks' then '24W' 
 			   when "Time Period"='52 Weeks' then '52W' 
 			   else "Time Period" end as "TIME PERIOD ABR"
-			,"Time Period End Date" "TIME PERIOD END DATE", "Geography" "GEOGRAPHY", "POSITIONING GROUP" "POSITIONING GROUP" 
+			,"Time Period End Date" "TIME PERIOD END DATE", "Geography" "GEOGRAPHY","Geography Level" "GEOGRAPHY LEVEL", "POSITIONING GROUP" "POSITIONING GROUP" 
 			, "PRODUCT TYPE" "PRODUCT TYPE", "Department" "DEPARTMENT","STORAGE" "STORAGE","PLANT BASED" "PLANT BASED","UNIT OF MEASURE" "UNIT OF MEASURE", 
 			{% for item in results_list %}
     			"{{item}}" as ATTRIBUTE{{loop.index}}{%if not loop.last%},{% endif %}
@@ -61,7 +61,7 @@ select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory
 			   when "Time Period"='24 Weeks' then '24W' 
 			   when "Time Period"='52 Weeks' then '52W' 
 			   else "Time Period" end 
-			,"Time Period End Date", "Geography" , "POSITIONING GROUP" 
+			,"Time Period End Date", "Geography" ,"Geography Level", "POSITIONING GROUP" 
 			, "PRODUCT TYPE", "Department" ,"STORAGE","PLANT BASED","UNIT OF MEASURE", 
 			{% for item in results_list %}
     			"{{item}}"{%if not loop.last%},{% endif %}
