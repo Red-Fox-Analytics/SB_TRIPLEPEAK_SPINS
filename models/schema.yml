@@ -85,11 +85,10 @@ metrics:
     description: "Sales percentage change from year ago"
 
     type: ROUND
-    sql:  case when SUM("$ SALES YA")=0 then 0 else  ((SUM("$ SALES") /SUM("$ SALES YA"))-1)*100 end 
+    sql:  case when SUM("$ SALES YA")=0 then 0 else  ((SUM("$ SALES")/SUM("$ SALES YA"))-1)*100 end 
 
     timestamp: "TIME PERIOD END DATE"
     time_grains: [day, week, month]
 
     dimensions:
       - "PRODUCT LEVEL"
-      - "CATEGORY" 
