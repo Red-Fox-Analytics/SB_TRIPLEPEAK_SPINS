@@ -10,7 +10,7 @@
 {% endif %}
 with basic_calculations as (
 
-select   	"Product Level" as "PROCUCT LEVEL","Category" as CATEGORY,"Subcategory" "SUBCATEGORY","Channel/Outlet" "CHANNEL/OUTLET","Brand" "BRAND", "Product Universe" "PRODUCT UNIVERSE", "UPC" ,"Description" as "PRODUCT DESCRIPTION"
+select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory" "SUBCATEGORY","Channel/Outlet" "CHANNEL/OUTLET","Brand" "BRAND", "Product Universe" "PRODUCT UNIVERSE", "UPC" ,"Description" as "PRODUCT DESCRIPTION"
 			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end "TIME PERIOD"
 			, CASE when "Time Period"='4 Weeks' then '04W' 
 		 	   when "Time Period"='12 Weeks' then '12W' 
