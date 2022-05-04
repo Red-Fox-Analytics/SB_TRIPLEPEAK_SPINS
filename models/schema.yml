@@ -92,6 +92,7 @@ metrics:
 
     dimensions:
       - "PRODUCT LEVEL"
+      - "CATEGORY" 
       
   - name: "$/S/W"
     label: "$ sales/ store selling / weeks selling"
