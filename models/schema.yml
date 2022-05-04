@@ -75,7 +75,7 @@ models:
         description: "NO OF STORES SELLING" 
       - name: "NUMBER OF WEEKS SELLING"
         description: "NUMBER OF WEEKS SELLING" 
-      - name: TDP
+      - name: "TDP"
         description: "TDP" 
         
 metrics:
