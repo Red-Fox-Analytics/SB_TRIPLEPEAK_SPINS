@@ -6,9 +6,15 @@ sources:
     tables:
       - name: TRIPLEPEAK_SPINS_LP
       - name: RF_SPINS_CUSTOMATRRIBUTES
+      - name: TRIPLEPEAK_SPINS_WXW
 
 models:
   - name: sb_triplepeak_spins_lp
+    description: "SB TriplePeak Spins LP"
+    columns:
+      - name: PRODUCT_LEVEL
+        description: "PRODUCT LEVEL"
+  - name: SB_triplepeak_spins_WxW
     description: "SB TriplePeak Spins LP"
     columns:
       - name: PRODUCT_LEVEL
