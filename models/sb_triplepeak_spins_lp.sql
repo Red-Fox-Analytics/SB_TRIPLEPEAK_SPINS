@@ -10,61 +10,61 @@
 {% endif %}
 with basic_calculations as (
 
-select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory" "SUBCATEGORY","Channel/Outlet" "CHANNEL/OUTLET","Retail Account Level" "RETAIL ACCOUNT LEVEL","Brand" "BRAND", "Product Universe" "PRODUCT UNIVERSE", "UPC" ,"Description" as "PRODUCT DESCRIPTION"
-			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end "TIME PERIOD"
+select   	"Product Level" as PRODUCT_LEVEL,"Category" as CATEGORY,"Subcategory" SUBCATEGORY,"Channel/Outlet" CHANNEL_OUTLET,"Retail Account Level" RETAIL_ACCOUNT_LEVEL,"Brand" BRAND, "Product Universe" PRODUCT_UNIVERSE, "UPC" UPC,"Description" as PRODUCT_DESCRIPTION
+			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end TIME_PERIOD
 			, CASE when "Time Period"='4 Weeks' then '04W' 
 		 	   when "Time Period"='12 Weeks' then '12W' 
 			   when "Time Period"='24 Weeks' then '24W' 
 			   when "Time Period"='52 Weeks' then '52W' 
-			   else "Time Period" end as "TIME PERIOD ABR"
-			,"Time Period End Date" "TIME PERIOD END DATE", "Geography" "GEOGRAPHY","Geography Level" "GEOGRAPHY LEVEL", "POSITIONING GROUP" "POSITIONING GROUP" 
-			, "PRODUCT TYPE" "PRODUCT TYPE", "Department" "DEPARTMENT","STORAGE" "STORAGE","PLANT BASED" "PLANT BASED","UNIT OF MEASURE" "UNIT OF MEASURE", 
+			   else "Time Period" end as TIME_PERIOD_ABR
+			,"Time Period End Date" TIME_PERIOD_END_DATE, "Geography" GEOGRAPHY,"Geography Level" GEOGRAPHY_LEVEL, "POSITIONING GROUP" POSITIONING_GROUP 
+			, "PRODUCT TYPE" PRODUCT_TYPE, "Department" DEPARTMENT,"STORAGE" STORAGE,"PLANT BASED" PLANT_BASED,"UNIT OF MEASURE" UNIT_OF_MEASURE, 
 			{% for item in results_list %}
     			"{{item}}" as ATTRIBUTE{{loop.index}}{%if not loop.last%},{% endif %}
 			{% endfor %}
-			, sum("Units"						) as "UNIT SALES"
-			, sum("Units, Yago"					) as "UNIT SALES YA"
-			, sum(cast(case when "Dollars" is null then 0 else "Dollars" end  as float)) as "$ SALES"
-			, sum(cast(case when "Dollars, Yago" is null then 0 else "Dollars, Yago" end as float)) as "$ SALES YA"
-			, sum("Dollars, Promo"						) as "SALES PROMO"
-			, sum("Dollars, Promo, Yago"					) as "SALES PROMO YA"
-			, sum("Units, Promo"							) as "UNIT SALES PROMO"
-			, sum("Units, Promo, Yago"					) as "UNIT SALES PROMO YA"
-			, sum("Base Dollars"						) as "BASE SALES"
-			, sum("Base Dollars, Yago"					) as "BASE SALES YA"
-			, sum("Dollars SPM"						) as "SALES SPM"
-			, sum("Dollars SPM, Yago"					) as "SALES SPM YA"
-			, sum("Units SPM"						) as "UNIT SALES SPM"
-			, sum("Units SPM, Yago"					) as "UNIT SALES SPM YA"
-			, sum(cast("Dollars" 					as float))-		sum(cast("Base Dollars" 			as float)) as "INCREMENTAL SALES"
-			, sum(cast("Dollars, Yago" 				 as float))-	sum(cast("Base Dollars, Yago" 	as float)) as "INCREMENTAL SALES YA"
-			, sum("Base Units"								) as "BASE UNIT SALES"
-			, sum("Base Units, Yago"						) as "BASE UNIT SALES YA"
-			, sum("Base Units, Promo"					) as "BASE UNIT SALES PROMO"
-			, sum("Base Units, Promo, Yago"				) as "BASE UNIT SALES PROMO YA"
-			, sum("Base Dollars, Promo"					) as "BASE SALES PROMO"
-			, sum("Base Dollars, Promo, Yago"					) as "BASE SALES PROMO YA"
-			, sum("TDP, Any Promo"									) as "TDP ANY PROMO"
-			, sum("TDP, Any Promo, Yago"							) as "TDP ANY PROMO YA"
+			, sum("Units"						) as UNIT_SALES
+			, sum("Units, Yago"					) as UNIT_SALES_YA
+			, sum(cast(case when "Dollars" is null then 0 else "Dollars" end  as float)) as DOLLAR_SALES
+			, sum(cast(case when "Dollars, Yago" is null then 0 else "Dollars, Yago" end as float)) as DOLLAR_SALES_YA
+			, sum("Dollars, Promo"						) as DOLLAR_SALES_PROMO
+			, sum("Dollars, Promo, Yago"					) as DOLLAR_SALES_PROMO_YA
+			, sum("Units, Promo"							) as UNIT_SALES_PROMO
+			, sum("Units, Promo, Yago"					) as UNIT_SALES_PROMO_YA
+			, sum("Base Dollars"						) as BASE_DOLLAR_SALES
+			, sum("Base Dollars, Yago"					) as BASE_DOLLAR_SALES_YA
+			, sum("Dollars SPM"						) as DOLLAR_SALES_SPM
+			, sum("Dollars SPM, Yago"					) as DOLLAR_SALES_SPM_YA
+			, sum("Units SPM"						) as UNIT_SALES_SPM
+			, sum("Units SPM, Yago"					) as UNIT_SALES_SPM_YA
+			, sum(cast("Dollars" 					as float))-		sum(cast("Base Dollars" 			as float)) as INCREMENTAL_SALES
+			, sum(cast("Dollars, Yago" 				 as float))-	sum(cast("Base Dollars, Yago" 	as float)) as INCREMENTAL_SALES_YA
+			, sum("Base Units"								) as BASE_UNIT_SALES
+			, sum("Base Units, Yago"						) as BASE_UNIT_SALES_YA
+			, sum("Base Units, Promo"					) as BASE_UNIT_SALES_PROMO
+			, sum("Base Units, Promo, Yago"				) as BASE_UNIT_SALES_PROMO_YA
+			, sum("Base Dollars, Promo"					) as BASE_DOLLAR_SALES_PROMO
+			, sum("Base Dollars, Promo, Yago"					) as BASE_DOLLAR_SALES_PROMO_YA
+			, sum("TDP, Any Promo"									) as TDP_ANY_PROMO
+			, sum("TDP, Any Promo, Yago"							) as TDP_ANY_PROMO_YA
 			, sum("TDP"									) as TDP
-			, sum("TDP, Yago"							) as "TDP YA"
-			, max("Max % ACV"						)     as "MAX % ACV" 
-			, max("Max % ACV, Yago"				) as "MAX % ACV YA"
-			, max("Avg % ACV"						)     as "AVG % ACV" 
-			, max("Avg % ACV, Yago"				) as "AVG % ACV YA"
-			, max("Max % ACV"	) - max("Max % ACV, Yago"	) as "MAX ACV PT CHG"
-			, max("Time Period End Date"				) as "LAST UPDATE DATE"
-			, max("# of Stores"				) as "NO OF STORES SELLING"
-			, max("# of Stores, Yago"			) as "NO OF STORES SELLING YA"
-			, max("Max % ACV, Any Promo") AS "MAX % ACV ANY PROMO"
-			, max("Max % ACV, Any Promo, Yago") AS "MAX % ACV ANY PROMO, YA"
-			, max("Weight Weeks, Any Promo") AS "WEIGHT WEEKS ANY PROMO"
-			, max("Weight Weeks, Any Promo, Yago") AS "WEIGHT WEEKS ANY PROMO YA"
-			, case when max("Number of Weeks Selling") is null then 0 else max("Number of Weeks Selling") end  as "NUMBER OF WEEKS SELLING"
-			, case when max("Number of Weeks Selling, Yago") is null then 0 else max("Number of Weeks Selling, Yago") end as "NUMBER OF WEEKS SELLING YA"
-			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as AVG_SIZE
+			, sum("TDP, Yago"							) as TDP_YA
+			, max("Max % ACV"						)     as MAX_ACV 
+			, max("Max % ACV, Yago"				) as MAX_ACV_YA
+			, max("Avg % ACV"						)     as AVG_ACV 
+			, max("Avg % ACV, Yago"				) as AVG_ACV_YA
+			, max("Max % ACV"	) - max("Max % ACV, Yago"	) as MAX_ACV_PT_CHG
+			, max("Time Period End Date"				) as LAST_UPDATE_DATE
+			, max("# of Stores"				) as NO_OF_STORES_SELLING
+			, max("# of Stores, Yago"			) as NO_OF_STORES_SELLING_YA
+			, max("Max % ACV, Any Promo") AS MAX_ACV_ANY_PROMO
+			, max("Max % ACV, Any Promo, Yago") AS MAX_ACV_ANY_PROMO_YA
+			, max("Weight Weeks, Any Promo") AS WEIGHT_WEEKS_ANY_PROMO
+			, max("Weight Weeks, Any Promo, Yago") AS WEIGHT_WEEKS_ANY_PROMO_YA
+			, case when max("Number of Weeks Selling") is null then 0 else max("Number of Weeks Selling") end  as NUMBER_OF_WEEKS_SELLING
+			, case when max("Number of Weeks Selling, Yago") is null then 0 else max("Number of Weeks Selling, Yago") end as NUMBER_OF_WEEKS_SELLING_YA
+			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as _SIZE
 	from {{ source('TRIPLEPEAK_SB', 'TRIPLEPEAK_SPINS_LP') }} msly--public.miltons_spins_lp_2y msly 
-	group by "Product Level","Category","Subcategory","Channel/Outlet","Retail Account Level" ,"Brand" , "Product Universe" , "UPC" ,"Description"
+	group by "Product Level","Category","Subcategory","Channel/Outlet","Retail Account Level","Brand" , "Product Universe" , "UPC" ,"Description"
 			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end
 			, CASE when "Time Period"='4 Weeks' then '04W' 
 		 	   when "Time Period"='12 Weeks' then '12W' 
@@ -79,18 +79,18 @@ select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory
 	--limit 1000
 ), level_2 as (
 select * 
-	, sum("$ SALES") 			over(partition by "GEOGRAPHY","TIME PERIOD","TIME PERIOD END DATE") "TOTAL CATEGORY SALES"
-	, sum("$ SALES YA") 		over(partition by "GEOGRAPHY","TIME PERIOD","TIME PERIOD END DATE") "TOTAL CATEGORY SALES YA"
-	, sum("UNIT SALES") 		over(partition by "GEOGRAPHY","TIME PERIOD","TIME PERIOD END DATE") "TOTAL CATEGORY UNIT SALES"
-	, sum("UNIT SALES YA") 		over(partition by "GEOGRAPHY","TIME PERIOD","TIME PERIOD END DATE") "TOTAL CATEGORY UNIT SALES YA"
-	, sum(TDP) 					over(partition by "GEOGRAPHY","TIME PERIOD","TIME PERIOD END DATE") "TOTAL CATEGORY TDP"
-	, "$ SALES" -	"$ SALES YA"		 "$ SALES CHANGE YA"
-	, cast("$ SALES" as float) - 								cast("SALES PROMO" 				as float)		"SALES NON PROMO"
-	, cast("$ SALES YA" as float) - 							cast("SALES PROMO YA" 			as float)		"SALES NON PROMO YA"
-	, cast("UNIT SALES YA" as float) - 						cast("BASE UNIT SALES YA" 		as float)		"INCREMENTAL UNIT SALES YA"
-	, cast(tdp as float)- 									cast("TDP YA"  					as float)		as "TDP CHANGE YA"
-	, cast("UNIT SALES" as float)-							cast("UNIT SALES YA"  			as float)		as "UNIT SALES CHANGE YA"
-	, cast("UNIT SALES YA" as float)-						cast("UNIT SALES PROMO YA"  	as float)			as "UNIT SALES NON PROMO YA"	
+	, sum(DOLLAR_SALES) 			over(partition by GEOGRAPHY,TIME_PERIOD,TIME_PERIOD_END_DATE) TOTAL_CATEGORY_SALES
+	, sum(DOLLAR_SALES_YA) 		over(partition by GEOGRAPHY,TIME_PERIOD,TIME_PERIOD_END_DATE) TOTAL_CATEGORY_SALES_YA
+	, sum(UNIT_SALES) 		over(partition by GEOGRAPHY,TIME_PERIOD,TIME_PERIOD_END_DATE) TOTAL_CATEGORY_UNIT_SALES
+	, sum(UNIT_SALES_YA) 		over(partition by GEOGRAPHY,TIME_PERIOD,TIME_PERIOD_END_DATE) TOTAL_CATEGORY_UNIT_SALES_YA
+	, sum(TDP) 					over(partition by GEOGRAPHY,TIME_PERIOD,TIME_PERIOD_END_DATE) TOTAL_CATEGORY_TDP
+	, DOLLAR_SALES -	DOLLAR_SALES_YA		 DOLLAR_SALES_CHANGE_YA
+	, cast(DOLLAR_SALES as float) - 								cast(DOLLAR_SALES_PROMO 				as float)		DOLLAR_SALES_NON_PROMO
+	, cast(DOLLAR_SALES_YA as float) - 							cast(DOLLAR_SALES_PROMO_YA 			as float)		DOLLAR_SALES_NON_PROMO_YA
+	, cast(UNIT_SALES_YA as float) - 						cast(BASE_UNIT_SALES_YA 		as float)		INCREMENTAL_UNIT_SALES_YA
+	, cast(TDP as float)- 									cast(TDP_YA  					as float)		as TDP_CHANGE_YA
+	, cast(UNIT_SALES as float)-							cast(UNIT_SALES_YA  			as float)		as UNIT_SALES_CHANGE_YA
+	, cast(UNIT_SALES_YA as float)-						cast(UNIT_SALES_PROMO_YA  	as float)			as UNIT_SALES_NON_PROMO_YA	
 	, "INCREMENTAL SALES"-"INCREMENTAL SALES YA" as "CHANGE DUE TO PROMOTION"
 	
 	from basic_calculations
