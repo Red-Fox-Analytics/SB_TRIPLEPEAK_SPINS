@@ -91,7 +91,7 @@ select *
 	, cast(TDP as float)- 									cast(TDP_YA  					as float)		as TDP_CHANGE_YA
 	, cast(UNIT_SALES as float)-							cast(UNIT_SALES_YA  			as float)		as UNIT_SALES_CHANGE_YA
 	, cast(UNIT_SALES_YA as float)-						cast(UNIT_SALES_PROMO_YA  	as float)			as UNIT_SALES_NON_PROMO_YA	
-	, "INCREMENTAL SALES"-"INCREMENTAL SALES YA" as "CHANGE DUE TO PROMOTION"
+	, INCREMENTAL_SALES-INCREMENTAL_SALES_YA as CHANGE_DUE_TO_PROMOTION
 	
 	from basic_calculations
 )
