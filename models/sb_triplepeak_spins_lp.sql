@@ -10,7 +10,7 @@
 {% endif %}
 with basic_calculations as (
 
-select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory" "SUBCATEGORY","Channel/Outlet" "CHANNEL/OUTLET","Brand" "BRAND", "Product Universe" "PRODUCT UNIVERSE", "UPC" ,"Description" as "PRODUCT DESCRIPTION"
+select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory" "SUBCATEGORY","Channel/Outlet" "CHANNEL/OUTLET","Retail Account Level" "RETAIL ACCOUNT LEVEL","Brand" "BRAND", "Product Universe" "PRODUCT UNIVERSE", "UPC" ,"Description" as "PRODUCT DESCRIPTION"
 			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end "TIME PERIOD"
 			, CASE when "Time Period"='4 Weeks' then '04W' 
 		 	   when "Time Period"='12 Weeks' then '12W' 
@@ -32,29 +32,39 @@ select   	"Product Level" as "PRODUCT LEVEL","Category" as CATEGORY,"Subcategory
 			, sum("Units, Promo, Yago"					) as "UNIT SALES PROMO YA"
 			, sum("Base Dollars"						) as "BASE SALES"
 			, sum("Base Dollars, Yago"					) as "BASE SALES YA"
+			, sum("Dollars SPM"						) as "SALES SPM"
+			, sum("Dollars SPM, Yago"					) as "SALES SPM YA"
+			, sum("Units SPM"						) as "UNIT SALES SPM"
+			, sum("Units SPM, Yago"					) as "UNIT SALES SPM YA"
 			, sum(cast("Dollars" 					as float))-		sum(cast("Base Dollars" 			as float)) as "INCREMENTAL SALES"
 			, sum(cast("Dollars, Yago" 				 as float))-	sum(cast("Base Dollars, Yago" 	as float)) as "INCREMENTAL SALES YA"
 			, sum("Base Units"								) as "BASE UNIT SALES"
 			, sum("Base Units, Yago"						) as "BASE UNIT SALES YA"
 			, sum("Base Units, Promo"					) as "BASE UNIT SALES PROMO"
 			, sum("Base Units, Promo, Yago"				) as "BASE UNIT SALES PROMO YA"
-			, sum("Base Dollars, Promo"					) as "BASE DOLLARS PROMO"
-			, sum("Base Dollars, Promo, Yago"					) as "BASE DOLLARS PROMO YA"
+			, sum("Base Dollars, Promo"					) as "BASE SALES PROMO"
+			, sum("Base Dollars, Promo, Yago"					) as "BASE SALES PROMO YA"
+			, sum("TDP, Any Promo"									) as "TDP ANY PROMO"
+			, sum("TDP, Any Promo, Yago"							) as "TDP ANY PROMO YA"
 			, sum("TDP"									) as TDP
 			, sum("TDP, Yago"							) as "TDP YA"
-			, max("Max % ACV"						)     as "MAX % acv" 
-			, max("Max % ACV, Yago"				) as "MAX $ ACV YA"
-			, max("Max % ACV"	) - max("Max % ACV, Yago"	) as "MAX ACV PT CHG YA"
+			, max("Max % ACV"						)     as "MAX % ACV" 
+			, max("Max % ACV, Yago"				) as "MAX % ACV YA"
+			, max("Avg % ACV"						)     as "AVG % ACV" 
+			, max("Avg % ACV, Yago"				) as "AVG % ACV YA"
+			, max("Max % ACV"	) - max("Max % ACV, Yago"	) as "MAX ACV PT CHG"
 			, max("Time Period End Date"				) as "LAST UPDATE DATE"
 			, max("# of Stores"				) as "NO OF STORES SELLING"
 			, max("# of Stores, Yago"			) as "NO OF STORES SELLING YA"
-			, max("Max % ACV, Any Promo") AS "MAX % ACV, Any PROMO"
-			, max("Max % ACV, Any Promo, Yago") AS "MAX % ACV, Any PROMO, YA"
+			, max("Max % ACV, Any Promo") AS "MAX % ACV ANY PROMO"
+			, max("Max % ACV, Any Promo, Yago") AS "MAX % ACV ANY PROMO, YA"
+			, max("Weight Weeks, Any Promo") AS "WEIGHT WEEKS ANY PROMO"
+			, max("Weight Weeks, Any Promo, Yago") AS "WEIGHT WEEKS ANY PROMO YA"
 			, case when max("Number of Weeks Selling") is null then 0 else max("Number of Weeks Selling") end  as "NUMBER OF WEEKS SELLING"
 			, case when max("Number of Weeks Selling, Yago") is null then 0 else max("Number of Weeks Selling, Yago") end as "NUMBER OF WEEKS SELLING YA"
 			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as AVG_SIZE
 	from {{ source('TRIPLEPEAK_SB', 'TRIPLEPEAK_SPINS_LP') }} msly--public.miltons_spins_lp_2y msly 
-	group by "Product Level","Category","Subcategory","Channel/Outlet" ,"Brand" , "Product Universe" , "UPC" ,"Description"
+	group by "Product Level","Category","Subcategory","Channel/Outlet","Retail Account Level" ,"Brand" , "Product Universe" , "UPC" ,"Description"
 			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end
 			, CASE when "Time Period"='4 Weeks' then '04W' 
 		 	   when "Time Period"='12 Weeks' then '12W' 
