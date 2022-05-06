@@ -10,7 +10,7 @@
 {% endif %}
 with basic_calculations as (
 
-select   	"Product Level" as PRODUCT_LEVEL,"Category" as CATEGORY,"Subcategory" SUBCATEGORY,"Channel/Outlet" CHANNEL_OUTLET,"Retail Account Level" RETAIL_ACCOUNT_LEVEL,"Brand" BRAND, "Product Universe" PRODUCT_UNIVERSE, "UPC" UPC,"Description" as PRODUCT_DESCRIPTION
+select   	"Product Level" as PRODUCT_LEVEL,"Category" as CATEGORY,"Subcategory" SUBCATEGORY,"FLAVOR" FLAVOR, "Channel/Outlet" CHANNEL_OUTLET,"Retail Account Level" RETAIL_ACCOUNT_LEVEL,"Brand" BRAND, "Product Universe" PRODUCT_UNIVERSE, "UPC" UPC,"Description" as PRODUCT_DESCRIPTION
 			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end TIME_PERIOD
 			, CASE when "Time Period"='4 Weeks' then '04W' 
 		 	   when "Time Period"='12 Weeks' then '12W' 
@@ -64,7 +64,7 @@ select   	"Product Level" as PRODUCT_LEVEL,"Category" as CATEGORY,"Subcategory" 
 			, case when max("Number of Weeks Selling, Yago") is null then 0 else max("Number of Weeks Selling, Yago") end as NUMBER_OF_WEEKS_SELLING_YA
 			, avg((case when "SIZE"  is null then null else cast("SIZE"  as float) end) ) as _SIZE
 	from {{ source('TRIPLEPEAK_SB', 'TRIPLEPEAK_SPINS_LP') }} msly--public.miltons_spins_lp_2y msly 
-	group by "Product Level","Category","Subcategory","Channel/Outlet","Retail Account Level","Brand" , "Product Universe" , "UPC" ,"Description"
+	group by "Product Level","Category","Subcategory","FLAVOR" FLAVOR,"Channel/Outlet","Retail Account Level","Brand" , "Product Universe" , "UPC" ,"Description"
 			, case when "Time Period"='4 Weeks' then '04 Weeks' else "Time Period" end
 			, CASE when "Time Period"='4 Weeks' then '04W' 
 		 	   when "Time Period"='12 Weeks' then '12W' 
