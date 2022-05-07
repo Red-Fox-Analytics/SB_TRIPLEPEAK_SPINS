@@ -54,8 +54,8 @@ select   	"Product Level" as PRODUCT_LEVEL,"Category" as CATEGORY,"Subcategory" 
 			, max("Avg % ACV, Yago"				) as AVG_ACV_YA
 			, max("Max % ACV"	) - max("Max % ACV, Yago"	) as MAX_ACV_PT_CHG
 			, max("Time Period End Date"				) as LAST_UPDATE_DATE
-			, max("# of Stores"				) as NO_OF_STORES_SELLING
-			, max("# of Stores, Yago"			) as NO_OF_STORES_SELLING_YA
+			, max("# of Stores Selling"				) as NO_OF_STORES_SELLING
+			, max("# of Stores Selling, Yago"			) as NO_OF_STORES_SELLING_YA
 			, max("Max % ACV, Any Promo") AS MAX_ACV_ANY_PROMO
 			, max("Max % ACV, Any Promo, Yago") AS MAX_ACV_ANY_PROMO_YA
 			, max("Weight Weeks, Any Promo") AS WEIGHT_WEEKS_ANY_PROMO
