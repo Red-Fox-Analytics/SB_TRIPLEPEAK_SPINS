@@ -95,4 +95,17 @@ select *
 	
 	from basic_calculations
 )
-select * from level_2
+select *, CASE WHEN BRAND IN (
+						'CHOMPS', 
+						'COUNTRY ARCHER',
+						'DUKES MEATS',
+						'EPIC',
+						'FIELD TRIP',
+						'LORISSAS KITCHEN',
+						'THE NEW PRIMAL',
+						'NICKS STICKS',
+						'PERKY JERKY',
+						'STRYVE',
+						'THINK JERKY', 
+						'VERMONT SMOKE & CURE') THEN 'Premium' ELSE 'Conventional' END  CATEGORY_SEGMENT 
+from level_2
