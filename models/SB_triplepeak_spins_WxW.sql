@@ -107,5 +107,5 @@ select *, CASE WHEN BRAND IN (
 						'PERKY JERKY',
 						'STRYVE',
 						'THINK JERKY', 
-						'VERMONT SMOKE & CURE') THEN 'Premium' ELSE 'Conventional' END  CATEGORY_SEGMENT 
+						'VERMONT SMOKE & CURE','KRAVE','CHEFS CUT') THEN 'Premium' ELSE 'Conventional' END  CATEGORY_SEGMENT 
 from level_2
